@@ -12,8 +12,11 @@ public:
   float uniform();
   float gaussian();
   float normal();
+  float poisson(float x);
 private:
   long seed;
   float ran1();
+  float gammln(float xx);
   float gasdev();
+  float poidev(float xm);
 };

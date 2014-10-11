@@ -57,6 +57,15 @@ float RANDOM::normal(){
 }
 
 
+/*=============================================================================
+  float RANDOM::poisson(float x) - returns a poisson random deviate
+  with expectation value x
+  ============================================================================*/
+float RANDOM::poisson(float x){
+  return poidev(x);
+}
+
+
 /******************************************************************************
  ******************************************************************************
  *                      Private members                                       *
@@ -116,6 +125,26 @@ float RANDOM::ran1(){
 
 
 /*=============================================================================
+  RANDOM::gammln(float xx) - computes a gamma function. Needed by poidev
+  ============================================================================*/
+float RANDOM::gammln(float xx)
+{
+	double x,y,tmp,ser;
+	static double cof[6]={76.18009172947146,-86.50532032941677,
+		24.01409824083091,-1.231739572450155,
+		0.1208650973866179e-2,-0.5395239384953e-5};
+	int j;
+
+	y=x=xx;
+	tmp=x+5.5;
+	tmp -= (x+0.5)*log(tmp);
+	ser=1.000000000190015;
+	for (j=0;j<=5;j++) ser += cof[j]/++y;
+	return -tmp+log(2.5066282746310005*ser/x);
+}
+
+
+/*=============================================================================
   float RANDOM::gasdev() - returns a random number from a normal
   distribution with zero mean and unity standard deviation.
   ============================================================================*/
@@ -139,3 +168,47 @@ float RANDOM::gasdev(){
     return gset;
   }
 }
+
+
+/*=============================================================================
+  float RANDOM::poidev(float xm) - returns a poisson random deviate
+  with a expectation value of xm
+  ============================================================================*/
+#define PI 3.141592654
+float RANDOM::poidev(float xm){
+	static float sq,alxm,g,oldm=(-1.0);
+	float em,t,y;
+
+	if (xm < 12.0) {
+		if (xm != oldm) {
+			oldm=xm;
+			g=exp(-xm);
+		}
+		em = -1;
+		t=1.0;
+		do {
+			++em;
+			t *= ran1();
+		} while (t > g);
+	} else {
+		if (xm != oldm) {
+			oldm=xm;
+			sq=sqrt(2.0*xm);
+			alxm=log(xm);
+			g=xm*alxm-gammln(xm+1.0);
+		}
+		do {
+			do {
+				y=tan(PI*ran1());
+				em=sq*y+xm;
+			} while (em < 0.0);
+			em=floor(em);
+			t=0.9*(1.0+y*y)*exp(em*alxm-gammln(em+1.0)-g);
+		} while (ran1() > t);
+	}
+	return em;
+}
+#undef PI
+/* (C) Copr. 1986-92 Numerical Recipes Software 1)0. */
+
+
