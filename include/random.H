@@ -2,6 +2,9 @@
  * This defines class RANDOM which is a random number generator class         *
  ******************************************************************************/
 
+#ifndef _RANDOM_H_
+#define _RANDOM_H_
+
 #include <math.h>
 
 class RANDOM{
@@ -24,3 +27,5 @@ private:
   float gasdev();
   float poidev(float xm);
 };
+
+#endif
