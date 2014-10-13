@@ -1,16 +1,16 @@
-INSTALLDIR=../..
-
-LIBINSTALLDIR=$(INSTALLDIR)/lib/
-INCLUDEINSTALLDIR=$(INSTALLDIR)/include/
+INSTALLDIR=~/lib/
 
 RANDOM_SRC=random.C
 RANDOM_OBJ=$(RANDOM_SRC:.C=.o)
 
 install: librandom.a
-	- mkdir $(LIBINSTALLDIR)
-	cp librandom.a $(LIBINSTALLDIR)
-	- mkdir $(INCLUDEINSTALLDIR)
-	cp ../include/random.h $(INCLUDEINSTALLDIR)
+	cp librandom.a $(INSTALLDIR)
+
+uninstall:
+	rm $(INSTALLDIR)/librandom.a
+
+clean:
+	rm $(RANDOM_OBJ)
 
 librandom.a: $(RANDOM_OBJ)
 	ar rc $@ $^
