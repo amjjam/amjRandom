@@ -15,6 +15,10 @@ public:
   float poisson(float x);
 private:
   long seed;
+  long iy;
+  long iv[32];
+  int iset;
+  float gset;
   float ran1();
   float gammln(float xx);
   float gasdev();
