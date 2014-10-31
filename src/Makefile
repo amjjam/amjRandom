@@ -1,16 +1,16 @@
 INSTALLDIR=~/lib/
 
-RANDOM_SRC=random.C
+RANDOM_SRC=Random.C
 RANDOM_OBJ=$(RANDOM_SRC:.C=.o)
 
-install: librandom.a
-	cp librandom.a $(INSTALLDIR)
+install: libRandom.a
+	cp libRandom.a $(INSTALLDIR)
 
 uninstall:
-	rm $(INSTALLDIR)/librandom.a
+	rm $(INSTALLDIR)/libRandom.a
 
 clean:
 	rm $(RANDOM_OBJ)
 
-librandom.a: $(RANDOM_OBJ)
+libRandom.a: $(RANDOM_OBJ)
 	ar rc $@ $^
