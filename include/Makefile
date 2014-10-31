@@ -1,9 +1,9 @@
 INSTALLDIR=~/include/
 
 install:
-	cp random.H $(INSTALLDIR)
+	cp Random.H $(INSTALLDIR)
 clean:
 
 uninstall:
-	rm $(INSTALLDIR)/random.H
+	rm $(INSTALLDIR)/Random.H
 
