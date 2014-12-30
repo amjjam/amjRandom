@@ -2,7 +2,7 @@
  * This defines class Random which is a random number generator class         *
  ******************************************************************************/
 
-#include "../include/random.H"
+#include "../include/Random.H"
 
 /*=============================================================================
   Random::Random() - creator. Creates the random number generator with
@@ -25,6 +25,14 @@ Random::Random(long seed){
   Random::seed=seed;
   iy=0;
   iset=0;
+}
+
+
+/*=============================================================================
+  ~Random() - destructor
+  ============================================================================*/
+Random::~Random(){
+
 }
 
 
