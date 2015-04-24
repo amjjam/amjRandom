@@ -8,8 +8,8 @@ build:
 	$(MAKE) -C include build
 
 install:
-	$(MAKE) -C src
-	$(MAKE) -C include
+	$(MAKE) -C src install
+	$(MAKE) -C include install
 
 clean: 
 	$(MAKE) -C src clean
