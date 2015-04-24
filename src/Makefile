@@ -1,16 +1,25 @@
-INSTALLDIR=~/lib/
+libdir=$(prefix)/lib
+
+CPPFLAGS=-Wall -g -fPIC
+CPP=g++
 
 RANDOM_SRC=Random.C
 RANDOM_OBJ=$(RANDOM_SRC:.C=.o)
 
-install: libRandom.a
-	cp libRandom.a $(INSTALLDIR)
-
-uninstall:
-	rm $(INSTALLDIR)/libRandom.a
-
-clean:
-	rm $(RANDOM_OBJ)
+build: libRandom.a libRandom.so
 
 libRandom.a: $(RANDOM_OBJ)
 	ar rc $@ $^
+
+libRandom.so: $(RANDOM_OBJ)
+	$(CPP) -shared -Wl,-soname,$@ -o $@ $^
+
+install: build
+	cp libRandom.a libRandom.so $(libdir)
+
+uninstall:
+	- rm -f $(libdir)/libRandom.a $(libdir)/libRandom.so
+
+clean:
+	- rm -f libRandom.a libRandom.so $(RANDOM_OBJ)
+

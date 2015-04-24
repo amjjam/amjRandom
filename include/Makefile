@@ -1,9 +1,11 @@
-INSTALLDIR=~/include/
+includedir=$(prefix)/include
+
+build:
 
 install:
-	cp Random.H $(INSTALLDIR)
-clean:
+	cp Random.H $(includedir)
 
 uninstall:
-	rm $(INSTALLDIR)/Random.H
+	- rm -f $(includedir)/Random.H
 
+clean:
