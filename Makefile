@@ -1,9 +1,20 @@
+ifndef prefix
+	prefix=~
+endif
+export prefix
+
+build:
+	$(MAKE) -C src build
+	$(MAKE) -C include build
+
 install:
-	make -C include
-	make -C src
+	$(MAKE) -C src
+	$(MAKE) -C include
+
 clean: 
-	make -C include clean
-	make -C src clean
+	$(MAKE) -C src clean
+	$(MAKE) -C include clean
+
 uninstall:
-	make -C include uninstall
-	make -C src uninstall
+	$(MAKE) -C src uninstall
+	$(MAKE) -C include uninstall
