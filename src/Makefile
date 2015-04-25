@@ -14,7 +14,9 @@ libRandom.a: $(RANDOM_OBJ)
 libRandom.so: $(RANDOM_OBJ)
 	$(CPP) -shared -Wl,-soname,$@ -o $@ $^
 
-install: build
+install: $(libdir)/libRandom.a $(libdir)/libRandom.so
+
+$(libdir)/libRandom.a $(libdir)/libRandom.so: libRandom.a libRandom.so
 	cp libRandom.a libRandom.so $(libdir)
 
 uninstall:

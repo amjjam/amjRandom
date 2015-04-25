@@ -2,7 +2,9 @@ includedir=$(prefix)/include
 
 build:
 
-install:
+install: $(includedir)/Random.H
+
+$(includedir)/Random.H: Random.H
 	cp Random.H $(includedir)
 
 uninstall:
