@@ -1,14 +1,14 @@
 /******************************************************************************
- * This defines class Random which is a random number generator class         *
+ * This defines class amjRandom which is a random number generator class      *
  ******************************************************************************/
 
-#include "../include/Random.H"
+#include "../include/amjRandom.H"
 
 /*=============================================================================
-  Random::Random() - creator. Creates the random number generator with
+  amjRandom::amjRandom() - creator. Creates the random number generator with
   the default initial seed of -1.
   ============================================================================*/
-Random::Random(){
+amjRandom::amjRandom(){
   seed=1;
   iy=0;
   iset=0;
@@ -16,60 +16,60 @@ Random::Random(){
 
 
 /*=============================================================================
-  Random::Random(long seed) - creator. Creates the random number
+  amjRandom::amjRandom(long seed) - creator. Creates the random number
   generator with an initial seed.
 
   long seed - the initial seed. Must be a negative number.
   ============================================================================*/
-Random::Random(long seed){
-  Random::seed=seed;
+amjRandom::amjRandom(long seed){
+  amjRandom::seed=seed;
   iy=0;
   iset=0;
 }
 
 
 /*=============================================================================
-  ~Random() - destructor
+  ~amjRandom() - destructor
   ============================================================================*/
-Random::~Random(){
+amjRandom::~amjRandom(){
 
 }
 
 
 /*=============================================================================
-  float Random::uniform() - returns a random number uniformly
+  float amjRandom::uniform() - returns a random number uniformly
   distributed in the interval [0;1[
   ============================================================================*/
-float Random::uniform(){
+float amjRandom::uniform(){
   return ran1();
 }
 
 
 /*=============================================================================
-  float Random:gaussian() - returns a random number normally/gaussian
+  float amjRandom:gaussian() - returns a random number normally/gaussian
   distributed with a mean of zero and a standard deviation of one. To
   create a random number with a different offset and standard
   deviation, multiply by the standard deviation and then add the
   offset.
   ============================================================================*/
-float Random::gaussian(){
+float amjRandom::gaussian(){
   return gasdev();
 }
 
 
 /*=============================================================================
-  float Random::normal() - synonym for gaussian()
+  float amjRandom::normal() - synonym for gaussian()
   ============================================================================*/
-float Random::normal(){
+float amjRandom::normal(){
   return gaussian();
 }
 
 
 /*=============================================================================
-  float Random::poisson(float x) - returns a poisson random deviate
+  float amjRandom::poisson(float x) - returns a poisson random deviate
   with expectation value x
   ============================================================================*/
-float Random::poisson(float x){
+float amjRandom::poisson(float x){
   return poidev(x);
 }
 
@@ -82,7 +82,7 @@ float Random::poisson(float x){
 
 
 /*=============================================================================
-  float Random::ran1() - return a number uniformly distributed in the
+  float amjRandom::ran1() - return a number uniformly distributed in the
   [0;1[ interval. This function is from Numerical Recipes.
   ============================================================================*/
 #define IA 16807
@@ -94,7 +94,7 @@ float Random::poisson(float x){
 #define NDIV (1+(IM-1)/NTAB)
 #define EPS 1.2e-7
 #define RNMX (1.0-EPS)
-float Random::ran1(){
+float amjRandom::ran1(){
   int j;
   long k;
   /*  static long iy=0;
@@ -133,9 +133,9 @@ float Random::ran1(){
 
 
 /*=============================================================================
-  Random::gammln(float xx) - computes a gamma function. Needed by poidev
+  amjRandom::gammln(float xx) - computes a gamma function. Needed by poidev
   ============================================================================*/
-float Random::gammln(float xx)
+float amjRandom::gammln(float xx)
 {
 	double x,y,tmp,ser;
 	static double cof[6]={76.18009172947146,-86.50532032941677,
@@ -153,10 +153,10 @@ float Random::gammln(float xx)
 
 
 /*=============================================================================
-  float Random::gasdev() - returns a random number from a normal
+  float amjRandom::gasdev() - returns a random number from a normal
   distribution with zero mean and unity standard deviation.
   ============================================================================*/
-float Random::gasdev(){
+float amjRandom::gasdev(){
   /*static int iset=0;
     static float gset;*/
   float fac,rsq,v1,v2;
@@ -179,11 +179,11 @@ float Random::gasdev(){
 
 
 /*=============================================================================
-  float Random::poidev(float xm) - returns a poisson random deviate
+  float amjRandom::poidev(float xm) - returns a poisson random deviate
   with a expectation value of xm
   ============================================================================*/
 #define PI 3.141592654
-float Random::poidev(float xm){
+float amjRandom::poidev(float xm){
 	static float sq,alxm,g,oldm=(-1.0);
 	float em,t,y;
 

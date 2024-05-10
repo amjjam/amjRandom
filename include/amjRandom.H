@@ -1,17 +1,17 @@
 /******************************************************************************
- * This defines class RANDOM which is a random number generator class         *
+ * This defines class amjRandom which is a random number generator class      *
  ******************************************************************************/
 
-#ifndef _RANDOM_H_
-#define _RANDOM_H_
+#ifndef _AMJRANDOM_H_
+#define _AMJRANDOM_H_
 
 #include <math.h>
 
-class Random{
+class amjRandom{
 public:
-  Random();
-  Random(long seed);
-  ~Random();
+  amjRandom();
+  amjRandom(long seed);
+  ~amjRandom();
   float uniform();
   float gaussian();
   float normal();

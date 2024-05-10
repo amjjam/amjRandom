@@ -1,27 +1,30 @@
-libdir=$(prefix)/lib
+ifndef prefix
+	prefix=/opt/amj
+endif
 
-CPPFLAGS=-Wall -g -fPIC
+FLAGS=-Wall -g -fPIC
+CPPFLAGS=$(FLAGS) 
 CPP=g++
 
-RANDOM_SRC=Random.C
-RANDOM_OBJ=$(RANDOM_SRC:.C=.o)
+AMJRANDOM_SRC=amjRandom.C
+AMJRANDOM_OBJ=$(AMJRANDOM_SRC:.C=.o)
 
-build: libRandom.a libRandom.so
+all: libamjRandom.so
 
-libRandom.a: $(RANDOM_OBJ)
-	ar rc $@ $^
-
-libRandom.so: $(RANDOM_OBJ)
+libamjRandom.so: $(AMJRANDOM_OBJ)
 	$(CPP) -shared -Wl,-soname,$@ -o $@ $^
 
-install: $(libdir)/libRandom.a $(libdir)/libRandom.so
-
-$(libdir)/libRandom.a $(libdir)/libRandom.so: libRandom.a libRandom.so
-	cp libRandom.a libRandom.so $(libdir)
+install: libamjRandom.so ../include/amjRandom.H
+	mkdir -p $(prefix)/lib
+	mkdir -p $(prefix)/include
+	cp libamjRandom.so $(prefix)/lib
+	cp ../include/amjRandom.H $(prefix)/include
 
 uninstall:
-	- rm -f $(libdir)/libRandom.a $(libdir)/libRandom.so
+	- rm $(prefix)/lib/libamjRandom.so
+	- rm $(prefix)/include/amjRandom.H
+	- rmdir $(prefix)/lib
+	- rmdir $(prefix)/include
 
 clean:
-	- rm -f libRandom.a libRandom.so $(RANDOM_OBJ)
-
+	- rm libamjRandom.so $(AMJRANDOM_OBJ)
